@@ -1,13 +1,9 @@
 plugins {
     id "idea"
     id "org.jetbrains.kotlin.jvm" version "1.5.21"
-    id "com.github.johnrengelman.shadow" version "7.1.2"
 }
 
 [compileKotlin, compileTestKotlin]*.kotlinOptions*.jvmTarget = "11"
-
-sourceCompatibility = JavaVersion.VERSION_11
-targetCompatibility = JavaVersion.VERSION_11
 
 ext {
     apacheCodedVersion = "1.15"
@@ -44,4 +40,11 @@ test {
 
 jar {
     archiveFileName = "${project.name}.jar"
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    manifest {
+        attributes(
+                "Main-Class": "ru.romanow.encryptor.PasswordEncryptorApplicationKt"
+        )
+    }
+    from { configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
 }

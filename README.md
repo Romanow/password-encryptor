@@ -3,19 +3,10 @@
 На Mac OS можно использовать стандартный LibreSSL 2.8.3.
 
 ```shell
-content=<data>
-password=<password>
-echo -n "$content" | openssl enc -aes-256-cbc \
- -base64 -A \
- -md sha256 \
- -pass pass:$password
-```
-
-```shell
 $ content="Hello, world"
 $ password="secret"
 
-# encrypted=$(./encrypt.sh $password $content)
+# encrypted=$(./encrypt.sh "$password" "$content")
 $ encrypted=$(echo -n "$content" | 
   openssl enc -aes-256-cbc \
     -base64 -A \
